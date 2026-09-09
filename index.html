@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архивокс: дикторские услуги и озвучка</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple: #7c3aed;
+            --purple-light: #a78bfa;
+            --dark: #050505;
+            --dark2: #0a0a0a;
+            --dark3: #111111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ========== ANIMATED GRADIENT BACKGROUND ========== */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(-45deg, #0a0015, #0d0810, #050d15, #100020);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        html {
+            background: #0a0015;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ========== FLOATING PARTICLES ========== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            display: block;
+        }
+
+        /* ========== GLOW ORB ========== */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: -1;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .glow-orb--1 {
+            width: 500px;
+            height: 500px;
+            background: var(--purple);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .glow-orb--2 {
+            width: 400px;
+            height: 400px;
+            background: #6b4fc9;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        .glow-orb--3 {
+            width: 300px;
+            height: 300px;
+            background: var(--purple);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+            opacity: 0.2;
+        }
+
+        .glow-orb--4 {
+            width: 350px;
+            height: 350px;
+            background: #a78bfa;
+            top: 25%;
+            right: -150px;
+            animation-delay: -7s;
+            opacity: 0.15;
+        }
+
+        .glow-orb--5 {
+            width: 350px;
+            height: 350px;
+            background: #6d28d9;
+            top: 20%;
+            left: -150px;
+            animation-delay: -3s;
+            opacity: 0.25;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* ========== NAVIGATION ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124,58,237,0.15);
+            padding: 14px 40px;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span {
+            color: #C9A26B;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #C9A26B;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid rgba(201,162,107,0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: #C9A26B;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+
+        .hero h1         .gold {
+            background: linear-gradient(135deg, #C9A26B, #dfc08a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 480px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s 0.7s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, #C9A26B, #b8905a);
+            color: #000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(201,162,107,0.3);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s 0.9s forwards;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 40px rgba(201,162,107,0.5);
+        }
+
+        .hero-cta svg {
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            max-width: 750px;
+            height: 80vh;
+            border-radius: 30px;
+            overflow: hidden;
+            opacity: 0;
+            animation: heroImageReveal 1.5s 0.5s forwards;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--dark) 0%, transparent 40%, transparent 80%, transparent 100%);
+            pointer-events: none;
+        }
+
+        @keyframes heroImageReveal {
+            from {
+                opacity: 0;
+                clip-path: inset(100% 0 0 0);
+            }
+            to {
+                opacity: 1;
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== SECTION BASE ========== */
+        section {
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #C9A26B;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 550px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .section-label,
+        .reveal .section-title,
+        .reveal .section-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== SERVICES SECTION ========== */
+        .services {
+            border-top: 1px solid rgba(124,58,237,0.1);
+            border-bottom: 1px solid rgba(124,58,237,0.1);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .services-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(124,58,237,0.04);
+            border: 1px solid rgba(124,58,237,0.12);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(60px);
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), transparent, rgba(124,58,237,0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) !important;
+            background: rgba(124,58,237,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .reveal .service-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal .service-card:nth-child(1) { transition-delay: 0.1s; }
+        .reveal .service-card:nth-child(2) { transition-delay: 0.2s; }
+        .reveal .service-card:nth-child(3) { transition-delay: 0.3s; }
+
+        .service-card-img {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .service-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover .service-card-img img {
+            transform: scale(1.08);
+        }
+
+        .service-card-body {
+            padding: 28px;
+        }
+
+        .service-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .service-card-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-card-price {
+            font-size: 0.9rem;
+            color: #C9A26B;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .service-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: transparent;
+            border: 1px solid rgba(201,162,107,0.3);
+            color: #C9A26B;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .service-card-btn:hover {
+            background: #C9A26B;
+            color: #000;
+            border-color: #C9A26B;
+        }
+
+        /* ========== SECOND ROW SERVICES ========== */
+        .services-row2 {
+            margin-top: 30px;
+        }
+
+        .services-row2 .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .reveal .services-row2 .service-card:nth-child(1) { transition-delay: 0.15s; }
+        .reveal .services-row2 .service-card:nth-child(2) { transition-delay: 0.25s; }
+
+        /* ========== ABOUT / PARTNER SECTION ========== */
+        .partner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .partner-text .section-title {
+            margin-bottom: 30px;
+        }
+
+        .partner-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .partner-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .partner-image {
+            border-radius: 24px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 1s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .partner-image {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .partner-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 6s ease;
+        }
+
+        .partner-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ========== MISSION QUOTE ========== */
+        .mission {
+            text-align: center;
+            padding: 140px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-text {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: #fff;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .mission-text {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .mission-text .gold {
+            color: #C9A26B;
+            font-weight: 600;
+        }
+
+        .mission-divider {
+            width: 60px;
+            height: 2px;
+            background: #C9A26B;
+            margin: 0 auto 40px;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.8s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .mission-divider {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* ========== SUPPORT SECTION ========== */
+        .support {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .support-image {
+            border-radius: 24px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .support-image {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .support-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 6s ease;
+        }
+
+        .support-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .support-text .section-title {
+            color: #fff;
+        }
+
+        .support-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .support-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .support-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #C9A26B, #b8905a);
+            color: #000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(201,162,107,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal .support-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .support-btn:hover {
+            box-shadow: 0 8px 40px rgba(201,162,107,0.45);
+            transform: translateY(-2px) !important;
+        }
+
+        /* ========== TEAM SECTION ========== */
+        .team {
+            border-top: 1px solid rgba(124,58,237,0.1);
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .team-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            padding: 30px;
+            background: rgba(124,58,237,0.04);
+            border: 1px solid rgba(124,58,237,0.12);
+            border-radius: 20px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .reveal .team-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal .team-card:nth-child(1) { transition-delay: 0.1s; }
+        .reveal .team-card:nth-child(2) { transition-delay: 0.2s; }
+
+        .team-card:hover {
+            background: rgba(124,58,237,0.06);
+            border-color: rgba(124,58,237,0.35);
+            transform: translateY(-4px) !important;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .team-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid rgba(201,162,107,0.35);
+            transition: border-color 0.3s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: #C9A26B;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .team-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .team-social a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #C9A26B;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-social a:hover {
+            opacity: 0.7;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            padding: 60px;
+            border-top: 1px solid rgba(124,58,237,0.15);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo span {
+            color: #C9A26B;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .footer-social {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,162,107,0.3);
+            color: #C9A26B;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-social:hover {
+            background: #C9A26B;
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(201,162,107,0.4);
+        }
+
+        /* ========== SCROLL INDICATOR ========== */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #C9A26B, #dfc08a);
+            z-index: 200;
+            transition: width 0.1s linear;
+        }
+
+        /* ========== MOBILE ========== */
+        @media (max-width: 960px) {
+            nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+
+            .hero {
+                padding: 100px 24px;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .hero-image {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                height: 300px;
+                margin-top: 40px;
+            }
+
+            section { padding: 80px 24px; }
+
+            .services-grid,
+            .services-row2 .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partner,
+            .support {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .mission { padding: 80px 24px; }
+        }
+
+        /* ========== CURSOR GLOW ========== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-bg"></div>
+    <canvas class="particles" id="particles"></canvas>
+    <div class="glow-orb glow-orb--1"></div>
+    <div class="glow-orb glow-orb--2"></div>
+    <div class="glow-orb glow-orb--3"></div>
+    <div class="glow-orb glow-orb--4"></div>
+    <div class="glow-orb glow-orb--5"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <nav id="navbar">
+        <a href="#" class="nav-logo">Архи<span>вокс</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#team">Команда</a></li>
+            <li><a href="#support">Поддержать</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Профессиональное озвучивание</div>
+            <h1>Голос, который <span class="gold">запоминается</span></h1>
+            <p class="hero-desc">
+                Архивокс — команда опытных дикторов и актёров озвучки, предоставляющих высококачественные услуги в области аудиопроизводства.
+            </p>
+            <a href="#services" class="hero-cta">
+                Узнать больше
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="фото1.jpeg" alt="Студия записи">
+        </div>
+    </section>
+
+    <!-- MISSION (after hero) -->
+    <section class="mission">
+        <div class="mission-divider"></div>
+        <p class="mission-text">
+            <span class="gold">Архивокс</span> — команда профессиональных дикторов и актёров озвучки, предоставляющих высококачественные услуги в области аудиопроизводства. Наша миссия — создавать выразительные и запоминающиеся аудиопродукты, соответствующие требованиям клиентов. Мы ценим профессионализм, творческий подход и сотрудничество.
+        </p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div class="section-label">Наши услуги</div>
+            <div class="section-title">Профессиональная озвучка</div>
+            <div class="section-desc">Предоставляем широкий спектр услуг в области аудиопроизводства для любых проектов.</div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="https://static.tildacdn.pub/tild3438-3231-4133-a130-653139393963/1000755688.jpg" alt="Запись аудиокниг">
+                </div>
+                <div class="service-card-body">
+                    <div class="service-card-title">Запись аудиокниг</div>
+                    <div class="service-card-text">Профессиональная запись аудиокниг для различных целей, включая образовательные и развлекательные проекты.</div>
+                    <div class="service-card-price">от 500 ₽</div>
+                    <a href="https://t.me/archivoise" class="service-card-btn">Заказать</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="https://static.tildacdn.pub/tild3134-3364-4433-b136-656161666433/1000755685.jpg" alt="Озвучка видеоигр">
+                </div>
+                <div class="service-card-body">
+                    <div class="service-card-title">Озвучка видеоигр</div>
+                    <div class="service-card-text">Создание озвучки для видеоигр, включая диалоги персонажей и озвучивание игровых событий.</div>
+                    <div class="service-card-price">от 3 000 ₽</div>
+                    <a href="https://t.me/archivoise" class="service-card-btn">Заказать</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="https://static.tildacdn.pub/tild6338-3230-4234-a632-653963323638/1000755684.jpg" alt="Озвучка рекламных роликов">
+                </div>
+                <div class="service-card-body">
+                    <div class="service-card-title">Озвучка рекламных роликов</div>
+                    <div class="service-card-text">Профессиональная озвучка рекламных роликов для телевидения, радио и интернет-платформ.</div>
+                    <div class="service-card-price">от 400 ₽</div>
+                    <a href="https://t.me/archivoise" class="service-card-btn">Заказать</a>
+                </div>
+            </div>
+        </div>
+        <div class="services-grid services-row2">
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="https://static.tildacdn.pub/tild6236-3131-4239-a366-616535303762/1000755686.jpg" alt="Запись закадрового текста">
+                </div>
+                <div class="service-card-body">
+                    <div class="service-card-title">Запись закадрового текста</div>
+                    <div class="service-card-text">Профессиональная запись закадрового текста для видео или аудио контента.</div>
+                    <div class="service-card-price">от 300 ₽</div>
+                    <a href="https://t.me/archivoise" class="service-card-btn">Заказать</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="https://static.tildacdn.pub/tild3337-3034-4532-b161-623935366661/1000755687.jpg" alt="Дубляж персонажей">
+                </div>
+                <div class="service-card-body">
+                    <div class="service-card-title">Дубляж персонажей</div>
+                    <div class="service-card-text">Дубляж персонажей для анимационных проектов, видеоигр и других медиа.</div>
+                    <div class="service-card-price">от 700 ₽</div>
+                    <a href="https://t.me/archivoise" class="service-card-btn">Заказать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM (after services) -->
+    <section class="team" id="team">
+        <div class="team-header">
+            <div class="section-label">Команда</div>
+            <div class="section-title">Участники Команды</div>
+            <div class="section-desc">Ознакомьтесь с информацией о наших дикторах и актёрах озвучки. Мы гордимся нашей талантливой командой.</div>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://static.tildacdn.pub/tild6231-6231-4538-b961-383032343330/1000749759.jpg" alt="Существо">
+                </div>
+                <div class="team-info">
+                    <h3>Существование (Существо)</h3>
+                    <p>Диктор / Актёр Озвучки</p>
+                    <div class="team-social">
+                        <a href="https://t.me/webexistence">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://static.tildacdn.pub/tild6534-6362-4261-a564-363839373765/1000755683.jpg" alt="Казо">
+                </div>
+                <div class="team-info">
+                    <h3>Казо</h3>
+                    <p>Диктор / Актёр озвучки</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNER (after team) -->
+    <section id="about">
+        <div class="partner">
+            <div class="partner-text">
+                <div class="section-label">Стать брендом голоса</div>
+                <div class="section-title">Стань нашим партнёром!</div>
+                <p class="partner-desc">
+                    Подайте заявку на становление брендом голоса на почту, или в личные сообщения Существу.<br><br>
+                    Для бренда голоса имеются скидки, а так же повышенный приоритет в выполнении заказов!<br><br>
+                    Развивайся вместе с нами!
+                </p>
+            </div>
+            <div class="partner-image">
+                <img src="https://static.tildacdn.pub/tild3435-3939-4866-b566-646335623538/photo-1516485392461-.jpg" alt="Партнёрство">
+            </div>
+        </div>
+    </section>
+
+    <!-- SUPPORT (bottom) -->
+    <section id="support">
+        <div class="support">
+            <div class="support-image">
+                <img src="https://static.tildacdn.pub/tild3435-3939-4866-b566-646335623538/photo-1516485392461-.jpg" alt="Поддержка">
+            </div>
+            <div class="support-text">
+                <div class="section-label">Поддержать</div>
+                <div class="section-title">ПОДДЕРЖАТЬ АРХИВОКС</div>
+                <p class="support-desc">Вы можете финансово поддержать нас для выплаты зарплаты участникам команды, и улучшения качества нашей работы!</p>
+                <a href="https://dalink.to/archivox" class="support-btn">
+                    Поддержать
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Архи<span>вокс</span></div>
+        <p>Профессиональные дикторские услуги и озвучка</p>
+        <div class="footer-socials">
+            <a href="https://t.me/archivoise" class="footer-social" title="Telegram" aria-label="Telegram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M21.94 4.87c-.1-.5-.43-.72-.86-.63-.28.07-5.47 2.14-14.07 6.13-1.04.43-1.59.83-1.63 1.2-.05.46.47.66 1.35.92l.46.14c.52.16 1.24.36 1.93.55.35.11.75.12 1.09-.02.26-.1.54-.32.72-.53l.22-.25c1.16 1.22 2.33 2.43 3.5 3.62.4.4.79.78 1.2 1.13.18.16.43.26.68.28l.1.01c.22 0 .46-.06.63-.24.15-.16.24-.4.29-.67.24-1.32 2.17-11.57 2.27-12.14l.01-.04v-.04l.12-.34c.07-.2.02-.4-.13-.55l-.18-.18.18.18a.31.31 0 0 0-.16-.11zM9.93 14.37l-3.25-.89a53.4 53.4 0 0 0 3.02-2.76c.28-.27.02-.73-.53-.6-.2.05-.4.08-.6.11-.44.06-2.28.32-3.2.17-.56-.09-.9-.36-1.13-.66-.14-.18-.22-.38-.24-.58l.42-.12c..."/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@speak.archivox?_r=1&_t=ZS-99avWrJz5WO" class="footer-social" title="TikTok" aria-label="TikTok">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.32 5.56a4.93 4.93 0 0 1-3.62-1.67 4.93 4.93 0 0 1-1.16-3.2h-3.04v13.5a2.59 2.59 0 0 1-2.59 2.59 2.59 2.59 0 0 1-2.58-2.59 2.59 2.59 0 0 1 2.58-2.59c.26 0 .52.04.76.12v-3.09a5.65 5.65 0 0 0-.76-.05 5.63 5.63 0 0 0-5.63 5.63 5.63 5.63 0 0 0 5.63 5.63 5.63 5.63 0 0 0 5.63-5.63V9.6a8.04 8.04 0 0 0 4.73 1.5V8.05a4.97 4.97 0 0 1-1.87-2.49z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // ===== INTERACTIVE FALLING PARTICLES =====
+        (function initParticles() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let W = canvas.width = window.innerWidth;
+            let H = canvas.height = window.innerHeight;
+
+            const mouse = { x: -9999, y: -9999 };
+            const interactiveRadius = 140;
+
+            const colors = ['124,58,237', '167,139,250', '109,40,217', '76,29,149'];
+
+            class Particle {
+                constructor() {
+                    this.reset(true);
+                }
+                reset(initial) {
+                    this.x = Math.random() * W;
+                    this.y = initial ? Math.random() * H : -10;
+                    this.size = Math.random() * 3 + 1.5;
+                    this.speedY = Math.random() * 0.8 + 0.3;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.rotation = Math.random() * Math.PI * 2;
+                }
+                update() {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < interactiveRadius) {
+                        const force = (interactiveRadius - dist) / interactiveRadius;
+                        this.x -= (dx / dist) * force * 2.2;
+                        this.y -= (dy / dist) * force * 2.2;
+                        this.rotation += dy > 0 ? 0.005 : -0.005;
+                    }
+
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.y > H + 10) {
+                        this.x = Math.random() * W;
+                        this.y = -10;
+                        this.size = Math.random() * 3 + 1.5;
+                        this.speedY = Math.random() * 0.8 + 0.3;
+                    }
+                    if (this.x > W + 10) this.x = -10;
+                    if (this.x < -10) this.x = W + 10;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillStyle = `rgba(${this.color},0.8)`;
+                    ctx.shadowColor = `rgba(${this.color},0.9)`;
+                    ctx.shadowBlur = 12;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            const particles = [];
+            const count = Math.min(60, Math.floor(W / 22));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            window.addEventListener('resize', () => {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('section, .services-header, .team-header');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== NAV SCROLL =====
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== SCROLL PROGRESS =====
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            scrollIndicator.style.width = progress + '%';
+        });
+
+        // ===== CURSOR GLOW =====
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.08;
+            glowY += (mouseY - glowY) * 0.08;
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // ===== PARALLAX ON HERO IMAGE =====
+        const heroImage = document.querySelector('.hero-image');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            if (heroImage && scrolled < window.innerHeight) {
+                heroImage.style.transform = `translateY(calc(-50% + ${scrolled * 0.15}px))`;
+            }
+        });
+    </script>
+</body>
+</html>
